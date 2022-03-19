@@ -14,7 +14,7 @@
       <button class="btn-link" id="view-highscores">View Highscores</button>
       <div>
         <span class="timer">Time:</span>
-        <span id="currentTime">0</span>
+        <span id="currentTime">75</span>
       </div>
     </div>
 
@@ -26,7 +26,8 @@
         <section id="codeQuestions">
           <!--for quiz questions and multiple choice answers-->
           <p>Try to answer the following code questions correctly within the given limit at the 
-              top right corner. Add your name to the high scores list at the end!
+              top right corner. Keep in mind wrong answers will deduct time!
+              Add your name to the high scores list at the end!
           </p>
         </section>
         <button 
@@ -47,7 +48,7 @@
             <span id="finished-prompt-score"></span>
           </p>
         </section>
-        Enter initials: <input />
+        Enter initials: <input id="initials-input" />
         <button class="btn" id="submit-score" style="display:inline;">
           Submit
         </button>
@@ -55,6 +56,8 @@
 
       <section id="highscores">
         <h1>Highscores</h1>
+        <div id="highscores-list">
+        </div>
         <button 
           class="btn" 
           id="highscores-go-home" 
@@ -75,6 +78,8 @@
         <h2 id="question-text"></h2>
         <div id="answers"></div>
       </section>
+
+      <section id="answer-result"></section>
     </main>
 
     <script src="assets/js/script.js"></script>

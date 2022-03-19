@@ -1,49 +1,66 @@
-var timeEl = document.querySelector(".timer");
-
-var currentTimeEl = document.querySelector("currentTime");
-
-var secondsLeft = 5;
-
-// timer.addEventListener("click", function() {
-//     if (holdInterval === 0) {
-//         holdInterval = setInterval
-//     }
-// }
-
 const questions = [
     {
         question: 'Commonly used data types DO NOT include:',
         answers: [
-            'Answer',
-            'Answer',
-            'Answer',
-            'Answer',
+            'strings', //strings
+            'booleans',//booleans
+            'alerts',//alerts <--correct answer
+            'numbers',//numbers
+            //correct: alerts
         ],
+        correct: 2,
     },
     {
         question: 'The condition in an if / else statement is enclosed within ____.',
         answers: [
-            'Answer',
-        ]
+            'curly', //curly brackets
+            'parentheses',//parentheses <--correct answer
+            'square brackets',//square brackets
+            'quotes',//quotes
+        ],
+        correct: 1,
     },
     {
         question: 'Arrays in JavaScript can be used to store ____.',
         answers: [
-            'Answer',
-        ]
+            'Answer',//numbers and strings
+            'other arrays',//other arrays
+            'booleans',//booleans
+            'All of the above',//All of the above  <<--correct answer
+        ],
+        correct: 3,
     },
     {
         question: 'A very useful tool used during development and debugging for printing content to the debugger is:',
         answers: [
-            'Answer',
-        ]
+            'console log',//console log <--correct answer
+            'Javascript',//Javascript
+            'terminal/bash',//terminal/bash
+            'for loops',//for loops
+        ],
+        correct: 0,
     }
 ]
+
+const questionPage = document.querySelector('#question')
+const currentTimeEl = document.querySelector("#currentTime")
+const finalScoreEl = document.querySelector("#finished-prompt-score")
+let secondsLeft = 75
+function updateSecondsLeft() {
+    secondsLeft = Math.max(0, secondsLeft - 1)
+    currentTimeEl.textContent = secondsLeft
+    finalScoreEl.textContent = secondsLeft
+}
+setInterval(function() {
+    if (questionPage.style.display === 'block') {
+        updateSecondsLeft()
+    }
+}, 1000);
 
 const pages = [
     document.querySelector('#finished-prompt'),
     document.querySelector('#start-prompt'),
-    document.querySelector('#question'),
+    questionPage,
     document.querySelector('#highscores')
 ]
 
@@ -51,7 +68,7 @@ function changePage(activePage) {
     pages.forEach(function(page) {
         page.style.display = 'none'
     })
-    document.querySelector(activePage).style.display = 'unset'
+    document.querySelector(activePage).style.display = 'block'
 }
 
 function createQuestion(idx) {
@@ -63,13 +80,28 @@ function createQuestion(idx) {
     answers.innerHTML = questions[idx]
         .answers
         .map(function(answer, i) {
-            return `<button class="btn">${i + 1}. ${answer}</button>`
+            const value = questions[idx].correct === i
+            return '<button class="btn" value="' + value + '">'
+                + (i + 1) + '. ' + answer
+                + '</button>'
         })
         .join('')
     document
         .querySelectorAll('#answers button')
         .forEach(function(answerButton) {
             answerButton.addEventListener('click', function(e) {
+                const resultEl = document.querySelector('#answer-result')
+                resultEl.style.display = 'block'
+                setTimeout(function() {
+                    resultEl.style.display = 'none'
+                }, 750)
+                if (e.target.value === 'true') {
+                    resultEl.innerText = 'Correct!'
+                } else {
+                    resultEl.innerText = 'Wrong!'
+                    secondsLeft -= 10
+                    updateSecondsLeft()
+                }
                 if (idx < questions.length - 1) {
                     createQuestion(idx + 1)
                 } else {
@@ -79,23 +111,32 @@ function createQuestion(idx) {
         })
 }
 
+function showHighscoresPage() {
+    localStorage.getItem('highscores') || ''
+    const highscoresListEl = document.querySelector('#highscores-list')
+    const highscores = (localStorage.getItem('highscores') || '').split(',')
+    let elList = ''
+    for (let i = 1; i < highscores.length; i++) {
+        elList += '<div>' + i + '. ' + highscores[i] + '</div>'
+    }
+    changePage('#highscores')
+    highscoresListEl.innerHTML = elList
+}
+
 document
     .querySelector('#startTimer')
     .addEventListener('click', function() {
         changePage('#question')
         createQuestion(0)
-    })
-
-document
-    .querySelector('#submit-score')
-    .addEventListener('click', function() {
-        changePage('#highscores')
+        secondsLeft = 75
+        currentTimeEl.innerText = '75'
     })
 
 document
     .querySelector('#view-highscores')
     .addEventListener('click', function() {
-        changePage('#highscores')
+        //changePage('#highscores')
+        showHighscoresPage()
     })
 
 document
@@ -104,19 +145,23 @@ document
         changePage('#start-prompt')
     })
 
-function startTime() {
-    var timerInterval = setInterval(function() {
-        secondsLeft--;
-        timeEl.textContent = secondsLeft;
+document
+    .querySelector('#highscores-clear')
+    .addEventListener('click', function() {
+        localStorage.removeItem('highscores')
+        showHighscoresPage()
+    })
 
-            if(secondsLeft === 0) {
-                clearInterval(timerInterval);
-                timesUp();
-            }
-    }, 1000);
-}
-
-function timesUp() {
-    timeEl.textContent = "Time's up! Quiz has ended. Review scores or start again!";
-}
-//startTime();
+document
+    .querySelector('#submit-score')
+    .addEventListener('click', function() {
+        const highscoresString = localStorage.getItem('highscores') || ''
+        const highscores = highscoresString.split(',')
+        highscores.push(
+            document.querySelector('#initials-input').value
+            + ' - '
+            + secondsLeft
+        )
+        localStorage.setItem('highscores', highscores.join(','))
+        showHighscoresPage()
+    })

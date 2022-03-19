@@ -33,10 +33,25 @@ main {
     display: none;
 }
 
+#answer-result {
+    display: none;
+    font-size: 20px;
+    font-style: italic;
+    border-top: 1px #80808078 solid;
+    color: grey;
+    margin-top: 20px;
+    padding-top: 4px;
+}
+
 .btn-link {
     border: 0;
     background: 0;
     font-size: 14px;
     color: rebeccapurple;
     cursor: pointer;
+}
+
+#highscores-list div {
+    background-color: rgb(128 0 128 / 38%);
+    padding: 8px;
 }
