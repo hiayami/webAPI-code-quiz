@@ -1,0 +1,42 @@
+.btn {
+    cursor: pointer;
+    display: block;
+    background-color: rebeccapurple;
+    padding: 4px 16px;
+    font-size: 14px;
+    color: white;
+    border: 0;
+    border-radius: 4px;
+    box-shadow: 0 0 2px black;
+    margin-top: 8px;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+}
+
+main {
+    margin: 0 auto;
+    width: 500px;
+}
+
+#question {
+    display: none;
+}
+
+#finished-prompt {
+    display: none;
+}
+
+#highscores {
+    display: none;
+}
+
+.btn-link {
+    border: 0;
+    background: 0;
+    font-size: 14px;
+    color: rebeccapurple;
+    cursor: pointer;
+}

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Code Quiz</title>
+    <meta charset="UTF-8" />
+    <!--makes document responsive https://web.dev/responsive-web-design-basics/-->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" type="text/css" href="./assets/cs/style.css" />
+  </head>
+
+  <body>
+    <div class="header">
+      <button class="btn-link" id="view-highscores">View Highscores</button>
+      <div>
+        <span class="timer">Time:</span>
+        <span id="currentTime">0</span>
+      </div>
+    </div>
+
+    <main>
+      <section id="start-prompt">
+        <h1>
+          <div class= "large-font">Coding Quiz Challenge!</div>
+        </h1>
+        <section id="codeQuestions">
+          <!--for quiz questions and multiple choice answers-->
+          <p>Try to answer the following code questions correctly within the given limit at the 
+              top right corner. Add your name to the high scores list at the end!
+          </p>
+        </section>
+        <button 
+          id="startTimer" 
+          class="btn"
+        >
+          Begin
+        </button>
+      </section>
+
+      <section id="finished-prompt">
+        <h1>
+          <div class= "large-font">All Done!</div>
+        </h1>
+        <section>
+          <p>
+            Your final score is 
+            <span id="finished-prompt-score"></span>
+          </p>
+        </section>
+        Enter initials: <input />
+        <button class="btn" id="submit-score" style="display:inline;">
+          Submit
+        </button>
+      </section>
+
+      <section id="highscores">
+        <h1>Highscores</h1>
+        <button 
+          class="btn" 
+          id="highscores-go-home" 
+          style="display:inline;margin-right: 8px;"
+        >
+          Go Back
+        </button>
+        <button 
+          class="btn" 
+          id="highscores-clear" 
+          style="display:inline;"
+        >
+          Clear Highscores
+        </button>
+      </section>
+
+      <section id="question">
+        <h2 id="question-text"></h2>
+        <div id="answers"></div>
+      </section>
+    </main>
+
+    <script src="assets/js/script.js"></script>
+
+
+  </body>
+</html>
