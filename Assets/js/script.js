@@ -1,3 +1,4 @@
+//data arrays of questions and answers. 
 const questions = [
     {
         question: 'Commonly used data types DO NOT include:',
@@ -42,10 +43,13 @@ const questions = [
     }
 ]
 
+//unique identifiers instead of variables
 const questionPage = document.querySelector('#question')
 const currentTimeEl = document.querySelector("#currentTime")
 const finalScoreEl = document.querySelector("#finished-prompt-score")
 let secondsLeft = 75
+
+//function for the timer to count down by one, posted for the final score
 function updateSecondsLeft() {
     secondsLeft = Math.max(0, secondsLeft - 1)
     currentTimeEl.textContent = secondsLeft
@@ -65,9 +69,11 @@ const pages = [
 ]
 
 function changePage(activePage) {
+    //function executed once for each array. 
     pages.forEach(function(page) {
         page.style.display = 'none'
     })
+    //display elements as block
     document.querySelector(activePage).style.display = 'block'
 }
 
@@ -77,16 +83,17 @@ function createQuestion(idx) {
         .innerText = questions[idx].question
     const answers = document
         .querySelector('#answers')
+        //map() method creates a new array populated with the results of calling this function on every element of the array (refer to lists of arrays at top of page; answers)
     answers.innerHTML = questions[idx]
         .answers
-        .map(function(answer, i) {
+        .map(function(answer, i) { //reference: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/map
             const value = questions[idx].correct === i
             return '<button class="btn" value="' + value + '">'
                 + (i + 1) + '. ' + answer
                 + '</button>'
         })
         .join('')
-    document
+    document //querySelectorAll for each answers buttons and displaying if true or correct answer
         .querySelectorAll('#answers button')
         .forEach(function(answerButton) {
             answerButton.addEventListener('click', function(e) {
@@ -123,6 +130,7 @@ function showHighscoresPage() {
     highscoresListEl.innerHTML = elList
 }
 
+//when button is clicked it will start the timer function with a total of 75 seconds
 document
     .querySelector('#startTimer')
     .addEventListener('click', function() {
@@ -131,7 +139,7 @@ document
         secondsLeft = 75
         currentTimeEl.innerText = '75'
     })
-
+//button querySelector for highscores and function
 document
     .querySelector('#view-highscores')
     .addEventListener('click', function() {
@@ -151,7 +159,7 @@ document
         localStorage.removeItem('highscores')
         showHighscoresPage()
     })
-
+//when user submits their initials it will print out to highscores page
 document
     .querySelector('#submit-score')
     .addEventListener('click', function() {
