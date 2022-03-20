@@ -11,4 +11,4 @@ Keep webpage responsive, use javascript and third-party API's to have the webpag
 All elements of web application is functioning.
 
 Process:
-I created an HTML page first then added CSS and Javascript afterwards. Web navigation was prioritized to work first, then adding more CSS and javascript to match desired functions and interactions of the webpage. Javascript and HTML is commented with web references used to create said desired effect.
+I created an HTML page first then added CSS and Javascript afterwards. Web navigation was prioritized to work first, then adding more CSS and javascript to match desired functions and interactions of the webpage. Javascript and HTML is commented with web references used to create said desired effect.<img width="1134" alt="Screen Shot 2022-03-19 at 9 24 16 PM" src="https://user-images.githubusercontent.com/98536530/159148115-7cc3b098-b246-43ca-9d5a-ff0be4ff2817.png">
